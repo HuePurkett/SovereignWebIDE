@@ -13,6 +13,13 @@ webSocket.onclose = function () { alert("WebSocket connection closed") };
 
 var currentColor = "red";
 
+var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
+    value: "public class HelloWorld {\n\n\tpublic static void main(String[] args) {\n\t\t// Prints \"Hello, World\" to the terminal window.\n\t\tSystem.out.println(\"Hello, World\");\n\t}\n}",
+    mode:  "text/x-java",
+    lineNumbers: true,
+    theme: "erlang-dark"
+});
+
 function changeColor(){
     if (currentColor == "red"){
         currentColor = "green";
