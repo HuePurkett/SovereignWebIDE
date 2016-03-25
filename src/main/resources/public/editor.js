@@ -5,13 +5,15 @@
 
 //Establish the WebSocket connection and set up event handlers
 var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
-webSocket.onmessage = function (msg) { updateEditor(msg); };
+webSocket.onmessage = function (msg) { updateEditor(msg, myCodeMirror); };
 webSocket.onclose = function () { alert("WebSocket connection closed") };
 
 //CodeMirror
 
 
 var currentColor = "red";
+var oldCode = "";
+var count = 0;
 
 var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
     value: "public class HelloWorld {\n\n\tpublic static void main(String[] args) {\n\t\t// Prints \"Hello, World\" to the terminal window.\n\t\tSystem.out.println(\"Hello, World\");\n\t}\n}",
@@ -21,28 +23,25 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
 });
 
 myCodeMirror.on("change", function(myCodeMirror, changeObj){
-    var code = myCodeMirror.getValue();
-    console.log(code);
-    webSocket.send(code);
-    updated_code = updateEditor(code);
-    if(updated_code != code){
-        myCodeMirror.setValue(updated_code);
-    }
-    else {
-        console.log("No code to update!")
-    }
-
+    oldCode = myCodeMirror.getValue();
+    console.log(oldCode);
+    webSocket.send(oldCode);
 });
 
 
 
 //Update the chat-panel, and the list of connected users
 function updateEditor(msg, myCodeMirror) {
+    count = count+1;
     var data = msg;
-    webSocket.send(msg);
-    //myCodeMirror.setValue(msg);
-    console.log(msg + "updateEditor");
-    return msg;
+    if(oldCode != msg.data && count%3 == 0){
+        console.log("new Code")
+        myCodeMirror.setValue(msg.data)
+    }
+    else {
+        console.log("No code to update!")
+    }
+    console.log(msg.data + "updateEditor");
 }
 
 //Helper function for inserting HTML as the first child of an element
