@@ -5,7 +5,7 @@
 
 //Establish the WebSocket connection and set up event handlers
 var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
-webSocket.onmessage = function (msg) { changeColor(msg); };
+webSocket.onmessage = function (msg) { updateEditor(msg); };
 webSocket.onclose = function () { alert("WebSocket connection closed") };
 
 //CodeMirror
@@ -20,14 +20,37 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
     theme: "erlang-dark"
 });
 
-function changeColor(){
-    if (currentColor == "red"){
-        currentColor = "green";
+myCodeMirror.on("change", function(myCodeMirror, changeObj){
+    var code = myCodeMirror.getValue();
+    console.log(code);
+    webSocket.send(code);
+    updated_code = updateEditor(code);
+    if(updated_code != code){
+        myCodeMirror.setValue(updated_code);
     }
-    else if(currentColor == "green"){
-        currentColor = "red";
+    else {
+        console.log("No code to update!")
     }
-    document.getElementById("colorButton").style.color = currentColor;
-    webSocket.send(currentColor);
-    alert(currentColor + " is the new color")
+
+});
+
+
+
+//Update the chat-panel, and the list of connected users
+function updateEditor(msg, myCodeMirror) {
+    var data = msg;
+    webSocket.send(msg);
+    //myCodeMirror.setValue(msg);
+    console.log(msg + "updateEditor");
+    return msg;
+}
+
+//Helper function for inserting HTML as the first child of an element
+function insert(targetId, message) {
+    id(targetId).insertAdjacentHTML("afterbegin", message);
+}
+
+//Helper function for selecting element by id
+function id(id) {
+    return document.getElementById(id);
 }
