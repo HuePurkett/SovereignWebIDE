@@ -11,7 +11,6 @@ webSocket.onclose = function () { alert("WebSocket connection closed") };
 //CodeMirror
 
 
-var currentColor = "red";
 var oldCode = "";
 var count = 0;
 
