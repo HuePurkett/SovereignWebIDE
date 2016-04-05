@@ -12,7 +12,6 @@ webSocket.onmessage = function (msg) { updateEditor(msg); };
 webSocket.onclose = function () { alert("WebSocket connection closed") };
 
 
-
 //Update the chat-panel, and the list of connected users
 function saveFile() {
     webSocket.send("yes");
