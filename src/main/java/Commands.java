@@ -21,7 +21,8 @@ public class Commands {
     public static void save_file() {
         // List<String> lines = Files.readAllLines(Paths.get("res/nashorn1.js"));
         // lines.add("print('foobar');");
-        FileWriter("fileName");
+        //FileWriter("fileName");
+        System.out.print("Writing string to file....\n");
     }
 
 }

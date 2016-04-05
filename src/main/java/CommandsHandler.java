@@ -20,10 +20,7 @@ public class CommandsHandler {
     @OnWebSocketMessage
     public void onMessage(String message) {
         System.out.print("Commands Handler execution!: " + message + "\n");
-        if(message == "yes") {
-            Commands.save_file();
-            System.out.print("Saving File!\n");
-        }
+        Commands.save_file();
     }
 }
 
