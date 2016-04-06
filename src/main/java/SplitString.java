@@ -8,7 +8,6 @@ public class SplitString {
     // public static final String file = "lineone\nlinetwo\n";
     // public static final String file2 = Editor.file;
 
-
     public static String[] main(String file) {
         // String[] data = PLAYER.split("\\|\\|");
         // String[] data2 = file.split("\\n");

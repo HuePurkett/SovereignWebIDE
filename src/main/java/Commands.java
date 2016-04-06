@@ -16,7 +16,6 @@ import static spark.Spark.*;
  */
 public class Commands {
 
-
     public static void main() {
         webSocket("/commands", CommandsHandler.class);
     }

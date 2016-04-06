@@ -13,7 +13,6 @@ import org.eclipse.jetty.websocket.api.annotations.*;
 @WebSocket
 public class CommandsHandler {
 
-
     private int NumberOfUsers = 0;
     private String msg;
 

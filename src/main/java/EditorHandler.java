@@ -20,7 +20,6 @@ public class EditorHandler {
         //Editor.updateEditors("Server", msg = (username + " joined the chat"));
     }
 
-
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
         System.out.print("Handler execution!: " + message + "\n");
