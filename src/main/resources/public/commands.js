@@ -11,13 +11,13 @@ var webSocketCommands = new WebSocket("ws://" + location.hostname + ":" + locati
 webSocketCommands.onclose = function () { alert("WebSocket connection closed") };
 
 
+
+// TODO: If you try to save a file before modifying the Editor, it will save it as an empty file.
+
 //Update the chat-panel, and the list of connected users
 function saveFile() {
-    webSocketCommands.send("save");
+    fileName = document.getElementById("fileName").value;
+    console.log(fileName);
+    webSocketCommands.send(fileName);
     console.log("Save file function called!");
-}
-
-function openFile() {
-    webSocket.send("open");
-    console.log("Open file function called");
 }

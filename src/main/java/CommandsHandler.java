@@ -18,9 +18,9 @@ public class CommandsHandler {
     private String msg;
 
     @OnWebSocketMessage
-    public void onSave(String message) {
+    public void onSave(String file_name) {
         // System.out.print("Commands Handler execution!: " + message + "\n");
-        Commands.save_file();
+        Commands.save_file(file_name);
     }
 }
 

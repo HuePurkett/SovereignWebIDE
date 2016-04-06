@@ -21,7 +21,7 @@ public class Commands {
         webSocket("/commands", CommandsHandler.class);
     }
 
-    public static void save_file() {
+    public static void save_file(String file_name) {
         try {
             // Grab the file from Editor. It is currently one string containing '\n'.
             String[] file_as_string = SplitString.main(Editor.file);
@@ -33,8 +33,15 @@ public class Commands {
             // lines.add("print('foobar');");
 
             // Write the List to a file.
-            Files.write(Paths.get("Test.txt"), file_as_list);
-            System.out.print("Writing string to file....\n");
+            if( file_name != "") {
+                Files.write(Paths.get(file_name), file_as_list);
+                System.out.print("Writing string to " + file_name + "...");
+            }
+            else {
+                Files.write(Paths.get("Test.txt"), file_as_list);
+                System.out.print("No file name specified. Writing string to Test.txt....\n");
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
