@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,18 +23,21 @@ public class Commands {
 
     public static void save_file() {
         try {
-            //Path newFilePath = Paths.get("Test.txt");
-            //Files.createFile(newFilePath);
+            // Grab the file from Editor. It is currently one string containing '\n'.
+            String[] file_as_string = SplitString.main(Editor.file);
+            // Have to convert to list for 'Files.write'.
+            List<String> file_as_list = Arrays.asList(file_as_string);
 
-            List<String> lines = Files.readAllLines(Paths.get("Test.txt"));
-            lines.add("print('foobar');");
-            Files.write(Paths.get("Test.txt"), lines);
+            // This may be useful for optimization in the future...
+            // List<String> lines = Files.readAllLines(Paths.get("Test.txt"));
+            // lines.add("print('foobar');");
 
+            // Write the List to a file.
+            Files.write(Paths.get("Test.txt"), file_as_list);
             System.out.print("Writing string to file....\n");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }
