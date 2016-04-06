@@ -3,10 +3,15 @@
  */
 
 
+// The link below explains WebSocket Client Applications.
+// https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+
+
 //Establish the WebSocket connection and set up event handlers
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
-webSocket.onmessage = function (msg) { updateEditor(msg, myCodeMirror); };
-webSocket.onclose = function () { alert("WebSocket connection closed") };
+var webSocketEdit = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
+// An event listener to be called when a message is received from the server
+webSocketEdit.onmessage = function (msg) { updateEditor(msg, myCodeMirror); };
+webSocketEdit.onclose = function () { alert("WebSocket connection closed") };
 
 //CodeMirror
 
@@ -24,7 +29,7 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
 myCodeMirror.on("change", function(myCodeMirror, changeObj){
     oldCode = myCodeMirror.getValue();
     console.log(oldCode);
-    webSocket.send(oldCode);
+    webSocketEdit.send(oldCode);
 });
 
 

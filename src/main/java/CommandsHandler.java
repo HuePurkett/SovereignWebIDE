@@ -18,8 +18,8 @@ public class CommandsHandler {
     private String msg;
 
     @OnWebSocketMessage
-    public void onMessage(String message) {
-        System.out.print("Commands Handler execution!: " + message + "\n");
+    public void onSave(String message) {
+        // System.out.print("Commands Handler execution!: " + message + "\n");
         Commands.save_file();
     }
 }

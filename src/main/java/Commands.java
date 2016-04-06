@@ -1,6 +1,8 @@
 import org.eclipse.jetty.websocket.api.Session;
 
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +21,19 @@ public class Commands {
     }
 
     public static void save_file() {
-        // List<String> lines = Files.readAllLines(Paths.get("res/nashorn1.js"));
-        // lines.add("print('foobar');");
-        //FileWriter("fileName");
-        System.out.print("Writing string to file....\n");
+        try {
+            //Path newFilePath = Paths.get("Test.txt");
+            //Files.createFile(newFilePath);
+
+            List<String> lines = Files.readAllLines(Paths.get("Test.txt"));
+            lines.add("print('foobar');");
+            Files.write(Paths.get("Test.txt"), lines);
+
+            System.out.print("Writing string to file....\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
