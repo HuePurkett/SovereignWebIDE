@@ -28,7 +28,17 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
 
 myCodeMirror.on("change", function(myCodeMirror, changeObj){
     oldCode = myCodeMirror.getValue();
-    console.log(oldCode);
+
+    // ---------- Example Code -----------------------------
+    // Access a specific property in the changeObj
+    // console.log(changeObj.from.line);
+
+    // A string version of the changeObj
+    changeObj_as_string = JSON.stringify(changeObj);
+    console.log(changeObj_as_string); // log to the console
+    // -----------------------------------------------------
+
+    // Send stuff to the server -> EditorHandler(...)
     webSocketEdit.send(oldCode);
 });
 
@@ -39,13 +49,13 @@ function updateEditor(msg, myCodeMirror) {
     count = count+1;
     var data = msg;
     if(oldCode != msg.data && count%3 == 0){
-        console.log("new Code")
+        // console.log("new Code")
         myCodeMirror.setValue(msg.data)
     }
     else {
         console.log("No code to update!")
     }
-    console.log(msg.data + "updateEditor");
+    console.log("\n\n" + msg.data + " : updateEditor");
 }
 
 //Helper function for inserting HTML as the first child of an element
