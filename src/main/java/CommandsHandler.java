@@ -41,6 +41,7 @@ public class CommandsHandler {
             System.out.println("Handler:Open\n");
             List<String> lines = Files.readAllLines(Paths.get(decoded_command[1]));
 
+
             String file_as_str = "";
             for (String s : lines) {
                 file_as_str += s + "\n";

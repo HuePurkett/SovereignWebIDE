@@ -24,6 +24,7 @@ function saveFile() {
 }
 
 
+
 function openFile() {
     openFileName = document.getElementById("openFileName").value;
     console.log(openFileName);
