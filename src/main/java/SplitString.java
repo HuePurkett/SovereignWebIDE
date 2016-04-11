@@ -2,12 +2,18 @@ import java.util.Arrays;
 
 /**
  * Created by Cody on 4/5/16.
+ *
+ *
  */
 public class SplitString {
     // public static final String PLAYER = "1||1||Abdul-Jabbar||Karim||1996||1974";
     // public static final String file = "lineone\nlinetwo\n";
     // public static final String file2 = Editor.file;
 
+    /**
+     * @param file - Remove all '\n' from a string.
+     * @return - the '\n' absent string.
+     */
     public static String[] main(String file) {
         // String[] data = PLAYER.split("\\|\\|");
         // String[] data2 = file.split("\\n");
