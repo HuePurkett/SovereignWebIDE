@@ -3,15 +3,19 @@
  */
 
 
+// The link below explains WebSocket Client Applications.
+// https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+
+
 //Establish the WebSocket connection and set up event handlers
-var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
-webSocket.onmessage = function (msg) { updateEditor(msg, myCodeMirror); };
-webSocket.onclose = function () { alert("WebSocket connection closed") };
+var webSocketEdit = new WebSocket("ws://" + location.hostname + ":" + location.port + "/editor");
+// An event listener to be called when a message is received from the server
+webSocketEdit.onmessage = function (msg) { updateEditor(msg, myCodeMirror); };
+webSocketEdit.onclose = function () { alert("WebSocket connection closed") };
 
 //CodeMirror
 
 
-var currentColor = "red";
 var oldCode = "";
 var count = 0;
 
@@ -24,8 +28,18 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
 
 myCodeMirror.on("change", function(myCodeMirror, changeObj){
     oldCode = myCodeMirror.getValue();
-    console.log(oldCode);
-    webSocket.send(oldCode);
+
+    // ---------- Example Code -----------------------------
+    // Access a specific property in the changeObj
+    // console.log(changeObj.from.line);
+
+    // A string version of the changeObj
+    changeObj_as_string = JSON.stringify(changeObj);
+    console.log(changeObj_as_string); // log to the console
+    // -----------------------------------------------------
+
+    // Send stuff to the server -> EditorHandler(...)
+    webSocketEdit.send(oldCode);
 });
 
 
@@ -35,13 +49,13 @@ function updateEditor(msg, myCodeMirror) {
     count = count+1;
     var data = msg;
     if(oldCode != msg.data && count%3 == 0){
-        console.log("new Code")
+        // console.log("new Code")
         myCodeMirror.setValue(msg.data)
     }
     else {
         console.log("No code to update!")
     }
-    console.log(msg.data + "updateEditor");
+    console.log("\n\n" + msg.data + " : updateEditor");
 }
 
 //Helper function for inserting HTML as the first child of an element
