@@ -8,7 +8,6 @@ import java.text.*;
 import java.util.*;
 
 
-
 public class Editor {
     static Map<Session, String> userUsernameMap = new HashMap<>();
     static int nextUserNumber = 1;
