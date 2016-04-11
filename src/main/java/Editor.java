@@ -13,6 +13,7 @@ public class Editor {
     static Map<Session, String> userUsernameMap = new HashMap<>();
     static int nextUserNumber = 1;
     static String file = "";
+    static String prev_cmd = "";
 
 
     public static void main(String[] args) {
@@ -27,8 +28,11 @@ public class Editor {
             try {
                 //file.add(update);
                 Editor.file = update;
-                System.out.print("Editor: " + file + "\n");
+                if (update.length() > file.length()){
+                    System.out.print("Editor: " + file + "\n");
+                }
                 session.getRemote().sendString(String.valueOf(file));
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

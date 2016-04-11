@@ -10,6 +10,7 @@ import org.eclipse.jetty.websocket.api.annotations.*;
 public class EditorHandler {
     private int NumberOfUsers = 0;
     private String msg;
+    private String previous_msg;
 
     @OnWebSocketConnect
     public void onConnect(Session user) throws Exception {
@@ -24,6 +25,8 @@ public class EditorHandler {
     @OnWebSocketMessage
     public void onMessage(Session user, String message) {
         System.out.print("Handler execution!: " + message + "\n");
-        Editor.updateEditors(Editor.userUsernameMap.get(user), msg = message);
+        if (message != null){
+            Editor.updateEditors(Editor.userUsernameMap.get(user), msg = message);
+        }
     }
 }
