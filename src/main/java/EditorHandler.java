@@ -9,6 +9,7 @@ import org.eclipse.jetty.websocket.api.annotations.*;
 /**
  * Handles the Editor's webSocket. These methods are accessible from the client and the server.
  */
+
 @WebSocket
 public class EditorHandler {
     private int NumberOfUsers = 0;
