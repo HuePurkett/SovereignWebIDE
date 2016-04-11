@@ -25,6 +25,7 @@ var myCodeMirror = CodeMirror(document.anchors.namedItem("editor"), {
 myCodeMirror.on("change", function(myCodeMirror, changeObj){
     oldCode = myCodeMirror.getValue();
     console.log(oldCode);
+    //console.log()
     webSocket.send(oldCode);
 });
 
@@ -41,7 +42,6 @@ function updateEditor(msg, myCodeMirror) {
     else {
         console.log("No code to update!")
     }
-    console.log(msg.data + "updateEditor");
 }
 
 //Helper function for inserting HTML as the first child of an element
