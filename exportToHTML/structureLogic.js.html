@@ -1,0 +1,143 @@
+<html>
+<head>
+<title>structureLogic.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(98,151,85); font-style: italic; }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(204,120,50); font-weight: bold; }
+.s3 { color: rgb(106,135,89); }
+.s4 { color: rgb(204,120,50); }
+.s5 { color: rgb(104,151,187); }
+.s6 { color: rgb(98,151,85); font-weight: bold; font-style: italic; }
+.s7 { color: rgb(128,128,128); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+structureLogic.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * Created by austin on 3/24/16. 
+ */</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">webSocket = </span><span class="s2">new </span><span class="s1">WebSocket(</span><span class="s3">&quot;ws://&quot; </span><span class="s1">+ location.hostname + </span><span class="s3">&quot;:&quot; </span><span class="s1">+ location.port + </span><span class="s3">&quot;/structure&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+webSocket.createStructure = </span><span class="s2">function </span><span class="s1">() { }</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">creator = document.getElementById(</span><span class="s3">'creator'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">newfile = document.getElementById(</span><span class="s3">'newfile'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">bCount = </span><span class="s5">1</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s0">/** JS File Structure Logic 
+ * </span><span class="s6">@overview </span><span class="s0">*/</span><span class="s1"> 
+</span><span class="s0">/** 
+ * </span><span class="s6">@param</span><span class="s0">{string} divID The the ID of the parent div in which the child div for the folder is to be created. 
+ * */</span><span class="s1"> 
+ 
+ 
+</span><span class="s2">function </span><span class="s1">createFolder (divID) { 
+    </span><span class="s2">var </span><span class="s1">buttonName = </span><span class="s3">'button' </span><span class="s1">+ bCount</span><span class="s4">;</span><span class="s1"> 
+    bCount += </span><span class="s5">1</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">div = createDiv(buttonName + </span><span class="s3">&quot;div&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">filesDiv = createDiv(buttonName + </span><span class="s3">&quot;div&quot; </span><span class="s1">+ </span><span class="s3">&quot;files&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">img = createImg(buttonName + </span><span class="s3">&quot;img&quot;</span><span class="s4">, </span><span class="s3">&quot;14&quot;</span><span class="s4">, </span><span class="s3">&quot;20&quot;</span><span class="s4">, </span><span class="s3">&quot;index.png&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">name = document.createTextNode(buttonName)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">button = document.createElement(</span><span class="s3">&quot;BUTTON&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">dropB = createDropButton(buttonName + </span><span class="s3">&quot;drop&quot;</span><span class="s4">, </span><span class="s1">filesDiv.getAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s1">))</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">addB = createAddButton(buttonName + </span><span class="s3">&quot;add&quot;</span><span class="s4">, </span><span class="s1">filesDiv.getAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s1">))</span><span class="s4">;</span><span class="s1"> 
+    button.appendChild(name)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(button)</span><span class="s4">;</span><span class="s1"> 
+    button.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">buttonName)</span><span class="s4">;</span><span class="s1"> 
+    button.setAttribute(</span><span class="s3">&quot;class&quot;</span><span class="s4">, </span><span class="s3">&quot;folderStyle&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    button.addEventListener(</span><span class="s3">&quot;dblclick&quot;</span><span class="s4">, </span><span class="s1">openFile)</span><span class="s4">;</span><span class="s1"> 
+    div.appendChild(dropB)</span><span class="s4">;</span><span class="s1"> 
+    div.appendChild(img)</span><span class="s4">;</span><span class="s1"> 
+    div.appendChild(button)</span><span class="s4">;</span><span class="s1"> 
+    div.appendChild(addB)</span><span class="s4">;</span><span class="s1"> 
+    div.appendChild(filesDiv)</span><span class="s4">;</span><span class="s1"> 
+    document.getElementById(divID).appendChild(div)</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">createFile (divID) { 
+    </span><span class="s2">var </span><span class="s1">buttonName = </span><span class="s3">'button' </span><span class="s1">+ bCount</span><span class="s4">;</span><span class="s1"> 
+    bCount += </span><span class="s5">1</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">div = createDiv(buttonName + </span><span class="s3">&quot;div&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s7">//var img = createImg(buttonName + &quot;img&quot;, &quot;14&quot;, &quot;20&quot;, &quot;index.png&quot;);</span><span class="s1"> 
+    </span><span class="s7">//document.body.appendChild(img);</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">name = document.createTextNode(buttonName)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">var </span><span class="s1">button = document.createElement(</span><span class="s3">&quot;BUTTON&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    button.appendChild(name)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(button)</span><span class="s4">;</span><span class="s1"> 
+    button.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">buttonName)</span><span class="s4">;</span><span class="s1"> 
+    button.setAttribute(</span><span class="s3">&quot;class&quot;</span><span class="s4">, </span><span class="s3">&quot;fileStyle&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    button.addEventListener(</span><span class="s3">&quot;dblclick&quot;</span><span class="s4">, </span><span class="s1">openFile)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s7">//div.appendChild(img);</span><span class="s1"> 
+    div.appendChild(button)</span><span class="s4">;</span><span class="s1"> 
+    document.getElementById(divID).appendChild(div)</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">createDropButton(id</span><span class="s4">, </span><span class="s1">divId) { 
+    </span><span class="s2">var </span><span class="s1">dropB = document.createElement(</span><span class="s3">&quot;BUTTON&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    dropB.innerHTML = </span><span class="s3">&quot;&gt;&quot;</span><span class="s4">;</span><span class="s1"> 
+    dropB.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">id)</span><span class="s4">;</span><span class="s1"> 
+    dropB.setAttribute(</span><span class="s3">&quot;onclick&quot;</span><span class="s4">, </span><span class="s3">&quot;toggleDisplay('&quot;</span><span class="s1">+ divId + </span><span class="s3">&quot;','&quot; </span><span class="s1">+ id + </span><span class="s3">&quot;');&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    dropB.setAttribute(</span><span class="s3">&quot;class&quot;</span><span class="s4">, </span><span class="s3">&quot;dropdown&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(dropB)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">return </span><span class="s1">dropB</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">createAddButton(id</span><span class="s4">, </span><span class="s1">param) { 
+    </span><span class="s2">var </span><span class="s1">addB = document.createElement(</span><span class="s3">&quot;BUTTON&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    addB.innerHTML = (createImg(id+</span><span class="s3">&quot;img&quot;</span><span class="s4">, </span><span class="s5">10</span><span class="s4">, </span><span class="s5">10</span><span class="s4">, </span><span class="s3">&quot;add_file.png&quot;</span><span class="s1">)).outerHTML</span><span class="s4">;</span><span class="s1"> 
+    addB.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">id)</span><span class="s4">;</span><span class="s1"> 
+    addB.setAttribute(</span><span class="s3">&quot;class&quot;</span><span class="s4">, </span><span class="s3">&quot;addButton&quot;</span><span class="s1">) 
+    addB.setAttribute(</span><span class="s3">&quot;onclick&quot;</span><span class="s4">, </span><span class="s3">&quot;createFile('&quot; </span><span class="s1">+ param + </span><span class="s3">&quot;')&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(addB)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">return </span><span class="s1">addB</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">createImg (id</span><span class="s4">, </span><span class="s1">hi</span><span class="s4">, </span><span class="s1">wi</span><span class="s4">, </span><span class="s1">imgfile) { 
+    </span><span class="s2">var </span><span class="s1">img = document.createElement(</span><span class="s3">&quot;img&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    img.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">id)</span><span class="s4">;</span><span class="s1"> 
+    img.setAttribute(</span><span class="s3">&quot;height&quot;</span><span class="s4">, </span><span class="s1">hi)</span><span class="s4">;</span><span class="s1"> 
+    img.setAttribute(</span><span class="s3">&quot;width&quot;</span><span class="s4">, </span><span class="s1">wi)</span><span class="s4">;</span><span class="s1"> 
+    img.setAttribute(</span><span class="s3">&quot;src&quot;</span><span class="s4">, </span><span class="s1">imgfile)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(img)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">return </span><span class="s1">img</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">createDiv(id) { 
+    </span><span class="s2">var </span><span class="s1">div = document.createElement(</span><span class="s3">&quot;div&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    div.setAttribute(</span><span class="s3">&quot;id&quot;</span><span class="s4">, </span><span class="s1">id)</span><span class="s4">;</span><span class="s1"> 
+    div.setAttribute(</span><span class="s3">&quot;class&quot;</span><span class="s4">, </span><span class="s3">&quot;folder&quot;</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    document.body.appendChild(div)</span><span class="s4">;</span><span class="s1"> 
+    </span><span class="s2">return </span><span class="s1">div</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">rightClick(){ 
+ 
+} 
+ 
+ 
+</span><span class="s2">function </span><span class="s1">toggleDisplay(id</span><span class="s4">, </span><span class="s1">id2) { 
+    </span><span class="s2">if </span><span class="s1">(document.getElementById(id).style.display == </span><span class="s3">&quot;block&quot;</span><span class="s1">) { 
+        document.getElementById(id).style.display = </span><span class="s3">&quot;none&quot;</span><span class="s4">;</span><span class="s1"> 
+        document.getElementById(id2).innerHTML = </span><span class="s3">&quot;&gt;&quot;</span><span class="s4">;</span><span class="s1"> 
+    } </span><span class="s2">else </span><span class="s1">{ 
+        document.getElementById(id).style.display = </span><span class="s3">&quot;block&quot;</span><span class="s4">;</span><span class="s1"> 
+        document.getElementById(id2).innerHTML = </span><span class="s3">&quot;^&quot;</span><span class="s4">;</span><span class="s1"> 
+    } 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">displayMenu(){ 
+    alert(</span><span class="s3">'Menu Displayed'</span><span class="s1">) 
+} 
+ 
+</span><span class="s2">function </span><span class="s1">openFile() { 
+    alert(</span><span class="s3">'You opened a file'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+</span></pre>
+</body>
+</html>
