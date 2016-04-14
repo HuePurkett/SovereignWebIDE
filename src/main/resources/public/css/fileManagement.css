@@ -7,6 +7,21 @@
 
 }
 
+.contextMenuHide {
+    display: none;
+}
+
+.contextMenuShow {
+    list-style-position: inside;
+    display: block;
+    position: fixed;
+    z-index: 9;
+    background-color: #b0b0b0;
+    width: 200px;
+    height: 450px;
+    border-style: groove;
+    border-color: #2b2b2b;
+}
 
 
 .contain {

@@ -28,7 +28,7 @@
 	<link rel="stylesheet" href="css/mod_bootstrap.css">
 
 </head>
-<body>
+<body oncontextmenu="return false">
 <div class="pad-top25px"></div>
 <div class="pad-top25px"></div>
 <div class="pad-top25px"></div>
@@ -99,21 +99,32 @@
 </header>
 
 
+
+<div class="contextMenuHide" id="fileStructureMenu">
+	<ul style="list-style-type:none">
+		<li>Item1</li>
+		<li>Item2</li>
+	</ul>
+</div>
+
+
+
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-2">
 			<div class="FileManagement">
 				<script src="structureLogic.js"></script>
-				<div id="Srcs" class="btn-group-vertical">
+				<div id="Srcs" class="btn-group-vertical" oncontextmenu="menuShowHide(event);">
 					<button id="drop1" onclick="toggleDisplay('Mains', 'drop1'); toggleDisplay('srcFiles', 'drops1');" value=">">></button>
 					<img id="i1" src="index.png" width="20" height="14">
-					<button id="src" oncontextmenu="displayMenu()">src</button>
+					<button id="src">src</button>
 					<button id="addsrc" class="addButton" onclick="createFolder('srcFiles');" ><img id="addsrcimg" src="add_file.png" width="10" height="10" class="addButton"></button>
 					<ul id="srcFiles" class="column">
 
 					</ul>
 				</div>
-				<div id="Mains" class="btn-group-vertical">
+				<div id="Mains" class="btn-group-vertical" oncontextmenu="menuShowHide(event);">
 					<button id="drop2" onclick="toggleDisplay('mainFiles', 'drop2')" value=">">></button>
 					<img id="i2" src="index.png" width="20" height="14">
 					<button id="main" oncontextmenu="displayMenu()">main</button>

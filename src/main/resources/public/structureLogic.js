@@ -14,14 +14,41 @@ webSocket.createStructure = function () { };
 var creator = document.getElementById('creator');
 var newfile = document.getElementById('newfile');
 var bCount = 1;
+var cMenu1 = document.getElementById("fileStructureMenu");
 
+//http://stackoverflow.com/questions/15702867/html-tooltip-position-relative-to-mouse-pointer
+function menuShowHide(event) {
+    cMenu1.addEventListener("click", menuShowHide);
+    if(cMenu1.getAttribute("class") == "contextMenuHide"){
+        var x = event.clientX, y = event.clientY;
+        cMenu1.setAttribute("class", "contextMenuShow");
+        cMenu1.style.top = (y + 0) + 'px';
+        cMenu1.style.left = (x + 0) +'px';
+        cMenu1.addEventListener("mouseleave", menuHide);
+        //window.addEventListener("transitionend", addEvent);
+        //window.addEventListener("", menuHide);
+    } else {
+        cMenu1.setAttribute("class", "contextMenuHide");
+    }
+}
+/*
+function addEvent(){
+    window.removeEventListener("transitionend", addEvent);
+    window.addEventListener("click", menuHide);
+}
+*/
 
+function menuHide() {
+    if(cMenu1.getAttribute("class") == "contextMenuShow") {
+        cMenu1.setAttribute("class", "contextMenuHide");
+    }
+    //window.removeEventListener("click", menuHide);
+}
 
 /**
  * Creates a new div (folder) to be used as a container for more divs and buttons and places it inside another div (folder).
  * @param {string} divID - This is the id of the parent div in which the child div for the new folder will be created.
  */
-
 
 function createFolder (divID) {
     var buttonName = 'button' + bCount;
@@ -103,7 +130,7 @@ function createAddButton(id, typeCall) {
     var addB = document.createElement("BUTTON");
     addB.innerHTML = (createImg(id+"img", 10, 10, "add_file.png")).outerHTML;
     addB.setAttribute("id", id);
-    addB.setAttribute("class", "addButton")
+    addB.setAttribute("class", "addButton");
     addB.setAttribute("onclick", "createFile('" + typeCall + "')");
     document.body.appendChild(addB);
     return addB;
