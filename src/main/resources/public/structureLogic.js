@@ -43,7 +43,6 @@ function fileDict() {
         div.appendChild(button);
         div.appendChild(filesDiv);
         document.getElementById(divID).appendChild(div);
-        alert("about to append");
         targetDict[div.getAttribute("id")] = filesDiv.getAttribute("id");
         //fileCount += 1;
         return false;
