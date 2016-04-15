@@ -105,9 +105,9 @@
 		<li onclick="createFile()">New File</li>
 	</ul>
 </div>
-<form id="newFolderForm" class="newFolderForm" onsubmit="createFolder('folderInput')" style="display:none">
+<form id="newFolderForm" class="newFolderForm" onsubmit="return false" style="display:none">
 	Folder Name: <input id="folderInput" type="text" name="filename"><br>
-	<button type="submit">OK</button>
+	<button onclick="createFolder('folderInput')">OK</button>
 </form>
 
 

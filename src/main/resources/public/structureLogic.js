@@ -46,6 +46,7 @@ function fileDict() {
         alert("about to append");
         targetDict[div.getAttribute("id")] = filesDiv.getAttribute("id");
         //fileCount += 1;
+        return false;
     };
     this.getCurrTarget = function() {
         return targetDict[cMenu1Target];
@@ -67,6 +68,9 @@ function fileDict() {
 
 function createFolder (input) {
     dict.addFolder(document.getElementById(input).value);
+    showHide("newFolderForm");
+    document.getElementById("folderInput").value = "";
+    return false;
 }
 
 
