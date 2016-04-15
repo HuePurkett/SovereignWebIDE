@@ -15,34 +15,48 @@ var creator = document.getElementById('creator');
 var newfile = document.getElementById('newfile');
 var bCount = 1;
 var cMenu1 = document.getElementById("fileStructureMenu");
+var cMenu1Target;
+var dict = new fileDict();
 
-//http://stackoverflow.com/questions/15702867/html-tooltip-position-relative-to-mouse-pointer
-function menuShowHide(event) {
-    cMenu1.addEventListener("click", menuShowHide);
-    if(cMenu1.getAttribute("class") == "contextMenuHide"){
-        var x = event.clientX, y = event.clientY;
-        cMenu1.setAttribute("class", "contextMenuShow");
-        cMenu1.style.top = (y + 0) + 'px';
-        cMenu1.style.left = (x + 0) +'px';
-        cMenu1.addEventListener("mouseleave", menuHide);
-        //window.addEventListener("transitionend", addEvent);
-        //window.addEventListener("", menuHide);
-    } else {
-        cMenu1.setAttribute("class", "contextMenuHide");
-    }
-}
-/*
-function addEvent(){
-    window.removeEventListener("transitionend", addEvent);
-    window.addEventListener("click", menuHide);
-}
-*/
+function fileDict() {
+    var fileCount = 0;
+    var targetDict = {};
+    var cMenu1Target;
+    targetDict["Srcs"] = "srcFiles";
+    targetDict["Mains"] = "mainFiles";
 
-function menuHide() {
-    if(cMenu1.getAttribute("class") == "contextMenuShow") {
-        cMenu1.setAttribute("class", "contextMenuHide");
-    }
-    //window.removeEventListener("click", menuHide);
+    this.addFolder = function(folderName) {
+        var divID = targetDict[cMenu1Target];
+        var div = createDiv(folderName + "div")
+        var filesDiv = createDiv(folderName + "div" + "files");
+        var img = createImg(folderName + "img", "14", "20", "index.png");
+        var name = document.createTextNode(folderName);
+        var button = document.createElement("BUTTON");
+        var dropB = createDropButton(folderName+"drop", filesDiv.getAttribute("id"));
+        button.appendChild(name);
+        document.body.appendChild(button);
+        button.setAttribute("id", folderName);
+        button.setAttribute("class", "folderStyle");
+        button.addEventListener("contextmenu", menuShowHide);
+        div.appendChild(dropB);
+        div.appendChild(img);
+        div.appendChild(button);
+        div.appendChild(filesDiv);
+        document.getElementById(divID).appendChild(div);
+        alert("about to append");
+        targetDict[div.getAttribute("id")] = filesDiv.getAttribute("id");
+        //fileCount += 1;
+    };
+    this.getCurrTarget = function() {
+        return targetDict[cMenu1Target];
+    };
+    this.getMenuTarget = function(){
+        return cMenu1Target;
+    };
+    this.setMenuTarget = function(aTarget){
+        cMenu1Target = aTarget;
+    };
+    return this;
 }
 
 /**
@@ -50,29 +64,41 @@ function menuHide() {
  * @param {string} divID - This is the id of the parent div in which the child div for the new folder will be created.
  */
 
-function createFolder (divID) {
-    var buttonName = 'button' + bCount;
-    bCount += 1;
-    var div = createDiv(buttonName + "div");
-    var filesDiv = createDiv(buttonName + "div" + "files");
-    var img = createImg(buttonName + "img", "14", "20", "index.png");
-    var name = document.createTextNode(buttonName);
-    var button = document.createElement("BUTTON");
-    var dropB = createDropButton(buttonName + "drop", filesDiv.getAttribute("id"));
-    var addB = createAddButton(buttonName + "add", filesDiv.getAttribute("id"));
-    button.appendChild(name);
-    document.body.appendChild(button);
-    button.setAttribute("id", buttonName);
-    button.setAttribute("class", "folderStyle");
-    button.addEventListener("dblclick", openFile);
-    div.appendChild(dropB);
-    div.appendChild(img);
-    div.appendChild(button);
-    div.appendChild(addB);
-    div.appendChild(filesDiv);
-    document.getElementById(divID).appendChild(div);
+
+function createFolder (input) {
+    dict.addFolder(document.getElementById(input).value);
 }
 
+
+//http://stackoverflow.com/questions/15702867/html-tooltip-position-relative-to-mouse-pointer
+function menuShowHide(event) {
+    cMenu1.addEventListener("click", menuShowHide);
+    if(cMenu1.getAttribute("class") == "contextMenuHide"){
+        dict.setMenuTarget(event.target.parentNode.getAttribute("id"));
+        var x = event.clientX, y = event.clientY;
+        cMenu1.setAttribute("class", "contextMenuShow");
+        cMenu1.style.top = (y + 0) + 'px';
+        cMenu1.style.left = (x + 0) +'px';
+        cMenu1.addEventListener("mouseleave", menuHide);
+    } else {
+        cMenu1.setAttribute("class", "contextMenuHide");
+    }
+}
+function menuHide() {
+    if(cMenu1.getAttribute("class") == "contextMenuShow") {
+        cMenu1.setAttribute("class", "contextMenuHide");
+    }
+}
+
+function showHide(id){
+    var aObject = document.getElementById(id);
+    if(aObject.style.display == "none") {
+        aObject.style.display = "block";
+    }
+    else {
+        aObject.style.display = "none";
+    }
+}
 
 /**
  * Creates a new div and button to act as a file place-mark.
@@ -82,7 +108,8 @@ function createFolder (divID) {
  * @param {String} divID - id of parent div.
  */
 
-function createFile (divID) {
+function createFile () {
+    var divID = dict.getMenuTarget();
     var buttonName = 'button' + bCount;
     bCount += 1;
     var div = createDiv(buttonName + "div");

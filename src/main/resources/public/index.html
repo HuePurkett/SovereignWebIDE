@@ -99,13 +99,16 @@
 </header>
 
 
-
 <div class="contextMenuHide" id="fileStructureMenu">
 	<ul style="list-style-type:none">
-		<li>Item1</li>
-		<li>Item2</li>
+		<li onclick="showHide('newFolderForm')">New Folder</li>
+		<li onclick="createFile()">New File</li>
 	</ul>
 </div>
+<form id="newFolderForm" class="newFolderForm" onsubmit="createFolder('folderInput')" style="display:none">
+	Folder Name: <input id="folderInput" type="text" name="filename"><br>
+	<button type="submit">OK</button>
+</form>
 
 
 
@@ -116,10 +119,9 @@
 			<div class="FileManagement">
 				<script src="structureLogic.js"></script>
 				<div id="Srcs" class="btn-group-vertical" oncontextmenu="menuShowHide(event);">
-					<button id="drop1" onclick="toggleDisplay('Mains', 'drop1'); toggleDisplay('srcFiles', 'drops1');" value=">">></button>
+					<button id="drop1" onclick="toggleDisplay('Mains', 'drop1'); toggleDisplay('srcFiles', 'drop1');" value=">">></button>
 					<img id="i1" src="index.png" width="20" height="14">
 					<button id="src">src</button>
-					<button id="addsrc" class="addButton" onclick="createFolder('srcFiles');" ><img id="addsrcimg" src="add_file.png" width="10" height="10" class="addButton"></button>
 					<ul id="srcFiles" class="column">
 
 					</ul>
@@ -128,7 +130,6 @@
 					<button id="drop2" onclick="toggleDisplay('mainFiles', 'drop2')" value=">">></button>
 					<img id="i2" src="index.png" width="20" height="14">
 					<button id="main" oncontextmenu="displayMenu()">main</button>
-					<button id="addmain" class="addButton" onclick="createFile('mainFiles');" ><img id="addmainimg" src="add_file.png" width="10" height="10" class="addButton"></button>
 					<ul id="mainFiles" class="column">
 
 					</ul>

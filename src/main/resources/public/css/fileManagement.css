@@ -7,11 +7,23 @@
 
 }
 
+.newFolderForm {
+    position: fixed;
+    margin: 0 auto;
+    width: 250px;
+    height: 100px;
+    z-index: 15;
+    border-style: groove;
+    border-color: #2b2b2b;
+    background-color: #b0b0b0;
+}
+
 .contextMenuHide {
     display: none;
 }
 
 .contextMenuShow {
+    text-align: left;
     list-style-position: inside;
     display: block;
     position: fixed;
